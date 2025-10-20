@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity Vault - Exclusive Sports Cars</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="index.html">VELOCITY VAULT</a>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Collection</a></li>
+                <li><a href="#about">Our Legacy</a></li>
+                <li><a href="#reviews">Testimonials</a></li>
+                <li><a href="#contact">Connect</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icons">
+            <button class="cart-btn" aria-label="Shopping Cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </button>
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <nav class="mobile-nav">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Collection</a></li>
+            <li><a href="#about">Our Legacy</a></li>
+            <li><a href="#reviews">Testimonials</a></li>
+            <li><a href="#contact">Connect</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>The Apex of Automotive Artistry.</h1>
+                <p>Curated. Exclusive. Untamed. Own a piece of history that defies the ordinary.</p>
+                <a href="#products" class="btn primary-btn">Explore Limited Editions</a>
+            </div>
+            <div class="hero-media" style="background-image: url('images/hero-banner.jpg');"></div> 
+        </section>
+
+        <section id="products" class="products-section">
+            <h2>The Vault Collection</h2>
+            <p class="section-subtitle">A meticulously selected gallery of unique, limited-run sports cars.</p>
+            
+            <div class="product-grid" id="product-list">
+                <article class="product-card" data-id="v-101">
+                    <img src="images/car-1.jpg" alt="V-101 Spectre">
+                    <div class="product-info">
+                        <h3 class="product-name">Mclaren F1 LM</h3>
+                        <p class="product-desc">One of five ever produced. Raw power, distilled elegance. 680 HP V12.</p>
+                        <p class="product-price">$ 19,800,000</p>
+                        <button class="btn add-to-cart" data-name="Lamborghini Veneno" data-price="4000000">Add to Cart</button>
+                        <button class="btn buy-now mobile-only">Buy Now</button>
+                    </div>
+                </article>
+                
+                <article class="product-card" data-id="e-911">
+                    <img src="images/car-2.jpg" alt="E-Lamborghini Veneno">
+                    <div class="product-info">
+                        <h3 class="product-name">Lamborghini Veneno</h3>
+                        <p class="product-desc">A modernized classic. Zero to sixty in 2.8s. A true driver's legend.</p>
+                        <p class="product-price">$ 4.000.000</p>
+                        <button class="btn add-to-cart" data-name="Lamborghini Veneno" data-price="4000000">Add to Cart</button>
+                        <button class="btn buy-now mobile-only">Buy Now</button>
+                    </div>
+                </article>
+                
+                </div>
+        </section>
+
+        <div id="cart-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h3>Your Exclusive Order</h3>
+                <div id="cart-items">
+                    <p class="empty-cart-message">Your vault is currently empty.</p>
+                </div>
+                <div class="cart-total">
+                    <strong>Total:</strong> <span id="cart-total-price">$ 0</span>
+                </div>
+                <button class="btn primary-btn checkout-btn">Proceed to Checkout</button>
+            </div>
+        </div>
+
+        <section id="about" class="about-section">
+            <div class="about-content">
+                <h2>Our Legacy: Beyond the Dealership</h2>
+                <p>Velocity Vault is not a dealer; we are curators. We specialize in sourcing and offering the most rare and technologically profound sports machines on the planet. Each vehicle in our collection is meticulously vetted for provenance, condition, and its place in automotive history. When you acquire a car from us, you're not buying transport—you're securing a masterpiece.</p>
+                <a href="#contact" class="btn secondary-btn">Meet The Curators</a>
+            </div>
+            </section>
+
+        <section id="reviews" class="reviews-section">
+            <h2>The Voices of Our Clients</h2>
+            <div class="review-grid">
+                <div class="review-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"The entire acquisition process for my McLaren F1 LM was flawless. The car is beyond expectations, and the team's discretion was impeccable. True professionals."</p>
+                    <p class="customer-name">— A. Sterling, Dubai</p>
+                </div>
+                <div class="review-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"I finally own the Lamborghini Veneno. The quality of restoration is unmatched. Velocity Vault delivered on every promise of exclusivity and quality."</p>
+                    <p class="customer-name">— Dr. L. Chen, London</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2>Connect With The Vault</h2>
+            <p class="section-subtitle">Begin your exclusive journey. Our team is available for private consultation.</p>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email Address" required>
+                <textarea placeholder="Your Inquiry (e.g., 'Interested in the V-101 Spectre')" rows="5" required></textarea>
+                <button type="submit" class="btn primary-btn">Send Exclusive Inquiry</button>
+            </form>
+            
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>VELOCITY VAULT</h3>
+                <p>Curating the world's most unique and limited sports cars for the discerning collector.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Preferences</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Velocity Vault. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

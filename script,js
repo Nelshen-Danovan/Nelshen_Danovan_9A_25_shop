@@ -1,0 +1,177 @@
+// Komentar: Data Produk (Simulasi Database)
+const products = [
+    { id: 'v-101', name: 'V-101 Spectre', price: 2500000, qty: 1 },
+    { id: 'e-911', name: 'E-911 Legacy', price: 1200000, qty: 1 },
+    // Tambahkan data produk lain di sini jika diperlukan
+];
+
+// Komentar: Status Keranjang Belanja Global
+let cart = [];
+
+// Komentar: Fungsi untuk Memformat Harga ke Mata Uang (USD)
+const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+    }).format(amount);
+};
+
+// Komentar: Fungsi untuk Memperbarui Tampilan Keranjang (Cart Modal)
+const updateCartDisplay = () => {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartTotalPrice = document.getElementById('cart-total-price');
+    
+    // Hitung total item dan harga
+    let totalItems = 0;
+    let totalPrice = 0;
+    
+    // Kosongkan kontainer item
+    cartItemsContainer.innerHTML = '';
+
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your vault is currently empty.</p>';
+    } else {
+        cart.forEach(item => {
+            totalItems += item.qty;
+            totalPrice += item.price * item.qty;
+
+            // Buat elemen untuk setiap item di keranjang
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('cart-item');
+            itemElement.innerHTML = `
+                <div class="cart-item-info">
+                    <strong>${item.name}</strong> (x${item.qty})
+                </div>
+                <div class="cart-item-price">
+                    ${formatCurrency(item.price * item.qty)}
+                </div>
+                <button class="remove-from-cart" data-id="${item.id}" aria-label="Remove item">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+        });
+    }
+
+    // Update counter di header
+    cartCount.textContent = totalItems;
+    // Update total harga
+    cartTotalPrice.textContent = formatCurrency(totalPrice);
+    
+    // Re-attach event listener untuk tombol hapus
+    document.querySelectorAll('.remove-from-cart').forEach(button => {
+        button.addEventListener('click', removeFromCart);
+    });
+};
+
+// Komentar: Fungsi untuk Menambahkan Produk ke Keranjang
+const addToCart = (event) => {
+    const button = event.target;
+    // Ambil data dari tombol
+    const productName = button.getAttribute('data-name');
+    const productPrice = parseFloat(button.getAttribute('data-price'));
+    const productId = button.closest('.product-card').getAttribute('data-id');
+
+    // Cek apakah produk sudah ada di keranjang
+    const existingItem = cart.find(item => item.id === productId);
+
+    if (existingItem) {
+        // Jika ada, tambahkan kuantitas
+        existingItem.qty++;
+    } else {
+        // Jika belum ada, tambahkan item baru
+        cart.push({
+            id: productId,
+            name: productName,
+            price: productPrice,
+            qty: 1
+        });
+    }
+    
+    // Tampilkan notifikasi atau update keranjang
+    alert(`${productName} added to your exclusive order!`);
+    updateCartDisplay();
+};
+
+// Komentar: Fungsi untuk Menghapus Produk dari Keranjang
+const removeFromCart = (event) => {
+    const button = event.currentTarget;
+    const productId = button.getAttribute('data-id');
+
+    // Temukan index item di keranjang
+    const itemIndex = cart.findIndex(item => item.id === productId);
+
+    if (itemIndex > -1) {
+        // Hapus item dari array cart
+        cart.splice(itemIndex, 1);
+        updateCartDisplay();
+    }
+};
+
+// Komentar: Fungsi Toggle Menu Mobile
+const toggleMobileMenu = () => {
+    const mobileNav = document.querySelector('.mobile-nav');
+    mobileNav.classList.toggle('active');
+};
+
+// Komentar: Inisialisasi Event Listeners saat DOM Selesai Dimuat
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Event Listener untuk Tombol "Add to Cart"
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', addToCart);
+    });
+
+    // 2. Event Listener untuk Tombol "Buy Now" (Mobile Only)
+    // Buy Now akan langsung menambahkan ke cart dan membuka modal
+    document.querySelectorAll('.buy-now').forEach(button => {
+        button.addEventListener('click', (event) => {
+            addToCart(event); // Tambahkan ke keranjang
+            openModal();       // Buka modal
+        });
+    });
+
+    // 3. Event Listener untuk Navigasi Mobile
+    document.querySelector('.menu-toggle').addEventListener('click', toggleMobileMenu);
+
+    // 4. Logika Modal/Keranjang
+    const modal = document.getElementById('cart-modal');
+    const cartBtn = document.querySelector('.cart-btn');
+    const closeBtn = document.querySelector('.close-btn');
+    const checkoutBtn = document.querySelector('.checkout-btn');
+
+    const openModal = () => {
+        updateCartDisplay();
+        modal.style.display = 'block';
+    }
+
+    // Buka Modal
+    cartBtn.onclick = openModal;
+
+    // Tutup Modal via (x)
+    closeBtn.onclick = () => {
+        modal.style.display = 'none';
+    };
+
+    // Tutup Modal saat klik di luar
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+    
+    // Aksi Checkout
+    checkoutBtn.onclick = () => {
+        if (cart.length > 0) {
+             // Komentar: Di sini bisa ditambahkan logika redirect ke halaman checkout
+            alert('Proceeding to secure payment for ' + formatCurrency(parseFloat(document.getElementById('cart-total-price').textContent.replace(/[^0-9.]/g, ''))));
+        } else {
+            alert('Your cart is empty. Please select an item.');
+        }
+    };
+    
+    // Inisialisasi tampilan keranjang
+    updateCartDisplay();
+});
